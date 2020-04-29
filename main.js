@@ -12,6 +12,8 @@ formShop.formShopCount.value = 0
 
 
 
+
+
 renderBalanse()
 
 function renderBalanse() {
@@ -22,13 +24,10 @@ function renderBalanse() {
     getId('formBalancePepsi').value = modShop.products.pepsi.count + ' шт.';
 }
 
-// console.log(formShop.formShopCount.value);
-
-
 function setProduct() {
     console.log(this.value);
-    modShop.selectedProduct = this.value;
-    console.log(modShop.selectedProduct);
+    modShop.setselectedProduct(this.value);
+    console.log("modShop.selectedProduct --"  + modShop.selectedProduct);
 }
 
 
@@ -39,24 +38,24 @@ getId('inlineRadio3').addEventListener('click', setProduct);
 
 
 function addBtnOnclick() {
-    console.log("selectedProduct  ---  " + modShop.selectedProduct);
-    if (selectedProduct == undefined) {
+    console.log("modShop.selectedProduct  ---  " + modShop.selectedProduct);
+    if (modShop.selectedProduct == undefined) {
         console.log('Виберіть продукт!');
         getId('modalText').innerText = `Виберіть продукт! `
         $('#myModal').modal('show')
-    } else if ((formShop.formShopCount.value * products[selectedProduct].price ) > balance){
+    } else if ((formShop.formShopCount.value * modShop.products[modShop.selectedProduct].price ) > modShop.balance){
         console.log('У вас на балансі немає так багато грошей');
-        getId('modalText').innerText = `У вас на балансі немає так багато грошей, щоб купити ${formShop.formShopCount.value} пляшок ${products[selectedProduct].name} !`
+        getId('modalText').innerText = `У вас на балансі немає так багато грошей, щоб купити ${formShop.formShopCount.value} пляшок ${ modShop.products[ modShop.selectedProduct].name} !`
         $('#myModal').modal('show')
     }
     else if (formShop.formShopCount.value > 0) {
         console.log('виконується оператор IF');
-        if (products[selectedProduct].count >= formShop.formShopCount.value ) {
-            modShop.addToOrder(selectedProduct, formShop.formShopCount.value)
-            modShop.renderBalanse()
+        if ( modShop.products[ modShop.selectedProduct].count >= formShop.formShopCount.value ) {
+            modShop.addToOrder( modShop.selectedProduct, formShop.formShopCount.value)
+            renderBalanse()
             modShop.renderOrderTemp()
         } else {
-            getId('modalText').innerText = `На складі немає такої кількості - ${formShop.formShopCount.value} вибраного вами товару (${products[selectedProduct].name}). Цього товару є лише ${products[selectedProduct].count} !`
+            getId('modalText').innerText = `На складі немає такої кількості - ${formShop.formShopCount.value} вибраного вами товару (${ modShop.products[ modShop.selectedProduct].name}). Цього товару є лише ${ modShop.products[modShop.selectedProduct].count} !`
             $('#myModal').modal('show')
         }
     } else if (formShop.formShopCount.value <= 0) {
@@ -71,9 +70,9 @@ getId('addBtn').addEventListener('click', addBtnOnclick);
 
 
 function bayBtnFun(){
-   console.log('orderedProducts.length ' + orderedProducts.length);
-    orderedProducts.forEach(ShowResults)
-    getId('outputplace').innerHTML += `<hr><p class="mb-2 mt-2"><strong>Загальна вартість: ${zahalnaSuma} шт.</strong></p>  `
+   console.log('orderedProducts.length ' +  modShop.orderedProducts.length);
+   modShop.orderedProducts.forEach( modShop.ShowResults)
+    getId('outputplace').innerHTML += `<hr><p class="mb-2 mt-2"><strong>Загальна вартість: ${ modShop.zahalnaSuma} шт.</strong></p>  `
    
 }
 getId('bayBtn').addEventListener('click', bayBtnFun);

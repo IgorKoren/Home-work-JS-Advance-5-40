@@ -14,11 +14,10 @@ export let zahalnaSuma = 0;
 
 
 
-
-
-
-
 export let balance = 1000;
+
+
+// console.log('formShop.formShopCount.value --------' + formShop.formShopCount.value);
 
 export let products = {
     beer: {
@@ -41,7 +40,9 @@ export let products = {
     }
 }
 
-
+export function setselectedProduct(x){
+    selectedProduct = x;
+}
 
 export function addToOrder() {
       orderPre = [selectedProduct, formShop.formShopCount.value];
