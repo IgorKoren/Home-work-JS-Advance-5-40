@@ -1,3 +1,48 @@
+
+
+export let getId = x => document.getElementById(x);
+export let getSel = x => document.querySelector(x)
+
+export let formBalance = document.forms['formBalance']
+export let formShop = document.forms['formShop']
+
+export let orderedProducts = [];
+export let orderPre =[];
+export let selectedProduct;
+export let selectproductCount;
+export let zahalnaSuma = 0;
+
+
+
+
+
+
+
+export let balance = 1000;
+
+export let products = {
+    beer: {
+        article: 'beer',
+        name: 'Пиво',
+        price: 50,
+        count: 100
+    },
+    vine: {
+        article: 'vine',
+        name: 'Вино',
+        price: 50,
+        count: 50
+    },
+    pepsi: {
+        article: 'pepsi',
+        name: 'Пепсі',
+        price: 50,
+        count: 80
+    }
+}
+
+
+
 export function addToOrder() {
       orderPre = [selectedProduct, formShop.formShopCount.value];
       orderedProducts.push(orderPre);
